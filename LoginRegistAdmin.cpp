@@ -160,8 +160,16 @@ void login(void) {
             if (strcmp(Username, dt1.adminUsername) == 0) {
                 loginConnected(); //SUSAH BGT INI BERMASALAH
             } else {
+                string a;
                 cout << "Invalid username or password. Try again.";
-                login();
+                cout << "\nHave you registered your admin account? (yes/no)";
+                cin >> a;
+                if (a == "yes") {
+                    login();
+                } else {
+                    cout << "You must sign up first!" << endl;
+                    adminAcc();
+                }
             }
         }
 
