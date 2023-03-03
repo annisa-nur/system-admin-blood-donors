@@ -9,31 +9,42 @@
 
 using namespace std;
 
+/// Struct untuk menyimpan data antrian
+struct dataAntrian {
+    string nama;
+    string* status;
+};
 
-// Deklarasi tipe data Queue untuk menua Antrian
-vector<string> Antrian;
+// Deklarasi tipe data Queue untuk menyimpan Antrian
+vector<dataAntrian> vectorAntrian;
+
 // Fungsi untuk menambah elemen ke Antrian
-void enqueueAntrian(string nama) {
-    Antrian.push_back(nama);
+void enqueueAntrian(string namaPendonor, string* statusPendonor) {
+    dataAntrian antrianPendonor;
+    antrianPendonor.nama = namaPendonor;
+    antrianPendonor.status = statusPendonor;
+    vectorAntrian.push_back(antrianPendonor);
 }
 
 // Fungsi untuk menghapus elemen dari Antrian
 void dequeueAntrian() {
-    if (!Antrian.empty()) {
-        Antrian.erase(Antrian.begin());
+    if (!vectorAntrian.empty()) {
+        vectorAntrian.erase(vectorAntrian.begin());
     }
 }
 
-// Fungsi untuk menampilkan seluruh data dalam Aueue
+// Fungsi untuk menampilkan seluruh data dalam Antrian
 void daftarAntrian() {
-    if (Antrian.empty()) {
-        cout << "Queue kosong" << endl;
+    if (vectorAntrian.empty()) {
+        cout << "Antrian kosong" << endl;
     } else {
-        for (int i = 0; i < Antrian.size(); i++) {
-            cout << Antrian[i] << endl;
+        for (int i = 0; i < vectorAntrian.size(); i++) {
+            cout << vectorAntrian[i].nama << endl;
         }
-        cout << endl;
     }
+}
+void changeStatus () {
+    *vectorAntrian[0].status = "telah mendonor" ;
 }
 // Struktur data untuk menyimpan informasi pendonor darah
 struct Pendonor {
@@ -74,8 +85,8 @@ void registrasiPendonor() {
     pendonorBaru->next = head;
     head = pendonorBaru;
     cout <<endl<< "Pendonor " << pendonorBaru->nama << " telah berhasil terdaftar." << endl << endl;
-    //menambahkan nama ke antrian
-    enqueueAntrian(pendonorBaru->nama) ;
+    //menambahkan nama dan alamat status ke ANTRIAN ke antrian
+    enqueueAntrian(pendonorBaru->nama, &pendonorBaru->status) ;
 }
 
 
@@ -97,19 +108,7 @@ void daftarPendonor() {
         temp = temp->next;
     }
 }
-void changeStatus () {
-    Pendonor* temp = head;
-    if (temp != NULL) {
-        while (temp->status == "telah mendonor") {
-            temp = temp->next;
-        }
-        if (temp->status == "belum mendonor") {
-            temp->status == "telah mendonor" ;
-        }
-        return ;
 
-    }
-}
 // Fungsi utama program
 int main() {
     int pilihan;
@@ -142,8 +141,9 @@ int main() {
                             daftarAntrian();
                             break;
                         case 2:
-                            dequeueAntrian();
                             changeStatus () ;
+                            dequeueAntrian();
+
                             break;
 
                         default:
