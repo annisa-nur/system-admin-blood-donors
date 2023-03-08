@@ -9,9 +9,47 @@
 
 using namespace std;
 
-/// Struct untuk menyimpan data antrian
+// Struct untuk menyimpan data stok darah
+struct structStokDarah
+{
+    int A = 0 ;
+    int B = 0 ;
+    int AB = 0 ;
+    int O = 0 ;
+};
+//iniiasi stok darah
+structStokDarah stokDarah ;
+//fungsi untuk menambah stok darah
+void tambahStok(string tipe) {
+    if (tipe == "A") {
+        stokDarah.A ++ ;
+    }
+    if (tipe == "B") {
+        stokDarah.B ++ ;
+    }
+    if (tipe == "AB") {
+        stokDarah.AB ++ ;
+    }
+    if (tipe == "O") {
+        stokDarah.O ++ ;
+    }
+
+};
+//fungsi untuk menampilkan stok darah
+void tampilkanStokDarah(){
+    cout << "Stok darah: " << endl;
+    cout << "A: " << stokDarah.A<< endl;
+    cout << "B: " << stokDarah.B << endl;
+    cout << "AB: " << stokDarah.AB << endl;
+    cout << "O: " << stokDarah.O << endl;
+    cout << endl;
+} ;
+
+
+// Struct untuk menyimpan data antrian
 struct dataAntrian {
     string nama;
+    string tipe ;
     string* status;
 };
 
@@ -19,11 +57,13 @@ struct dataAntrian {
 vector<dataAntrian> vectorAntrian;
 
 // Fungsi untuk menambah elemen ke Antrian
-void enqueueAntrian(string namaPendonor, string* statusPendonor) {
+void enqueueAntrian(string namaPendonor, string* statusPendonor, string tipeDarah) {
     dataAntrian antrianPendonor;
     antrianPendonor.nama = namaPendonor;
     antrianPendonor.status = statusPendonor;
+    antrianPendonor.tipe = tipeDarah;
     vectorAntrian.push_back(antrianPendonor);
+
 }
 
 // Fungsi untuk menghapus elemen dari Antrian
@@ -45,10 +85,12 @@ void daftarAntrian() {
 }
 void changeStatus () {
     *vectorAntrian[0].status = "telah mendonor" ;
+    tambahStok(vectorAntrian[0].tipe) ;
 }
 // Struktur data untuk menyimpan informasi pendonor darah
 struct Pendonor {
     string nama;
+    string id ;
     int umur;
     char jenisKelamin;
     string tipeDarah;
@@ -58,9 +100,15 @@ struct Pendonor {
 
 // Inisialisasi pointer kepala linked list
 Pendonor* head = NULL;
-
+struct forID {
+    int A = 0;
+    int B = 0;
+    int AB = 0 ;
+    int O = 0 ;
+};
+forID idPendonor ;
 // Fungsi untuk menambahkan pendonor ke linked list
-void entryDonor() {
+void registrasiPendonor() {
     Pendonor* pendonorBaru = new Pendonor;
     cout << "Masukkan data pendonor:" << endl;
     cout << "Nama: ";
@@ -85,17 +133,20 @@ void entryDonor() {
     pendonorBaru->next = head;
     head = pendonorBaru;
     cout <<endl<< "Pendonor " << pendonorBaru->nama << " telah berhasil terdaftar." << endl << endl;
+    // menambakan id pendonor
+    if (pendonorBaru->tipeDarah == "A") {
+        pendonorBaru->id = "A" + to_string(++idPendonor.A);
+    } else if (pendonorBaru->tipeDarah == "B") {
+        pendonorBaru->id = "B" + to_string(++idPendonor.B);
+    } else if (pendonorBaru->tipeDarah == "AB") {
+        pendonorBaru->id = "AB" + to_string(++idPendonor.AB);
+    } else if (pendonorBaru->tipeDarah == "O") {
+        pendonorBaru->id = "O" + to_string(++idPendonor.O);
+    }
     //menambahkan nama dan alamat status ke ANTRIAN ke antrian
-    enqueueAntrian(pendonorBaru->nama, &pendonorBaru->status) ;
+    enqueueAntrian(pendonorBaru->nama, &pendonorBaru->status, pendonorBaru->tipeDarah) ;
 }
 
-void screening() {
-    //kerjaannya sanur
-}
-
-void keluhanPascaDonor() {
-    //kerjaannya Aba
-}
 
 // Fungsi untuk menampilkan daftar pendonor dari linked list
 void daftarPendonor() {
@@ -106,6 +157,7 @@ void daftarPendonor() {
     }
     cout << "Daftar Pendonor: " << endl;
     while (temp != NULL) {
+        cout << "ID: " << temp->id << endl;
         cout << "Nama: " << temp->nama << endl;
         cout << "Umur: " << temp->umur << endl;
         cout << "Jenis Kelamin: " << temp->jenisKelamin << endl;
@@ -114,6 +166,104 @@ void daftarPendonor() {
         cout << endl;
         temp = temp->next;
     }
+} ;
+
+void editDataPendonor() {
+    string rubahId ;
+    cout << "id: ";
+    cin >> rubahId ;
+    Pendonor* current = head;
+    bool found = false;
+
+    while (current != NULL && !found) {
+        if (current->id == rubahId) {
+            found = true;
+        } else {
+            current = current->next;
+        }
+    }
+
+    if (found) {
+        // melakukan perubahan data yang diinginkan
+        cout << "Masukkan data baru untuk pendonor " << rubahId << ":" << endl;
+        cout << "Nama: ";
+        getline(cin >> ws, current->nama);
+        cout << "Umur: ";
+        cin >> current->umur;
+        cout << "Jenis Kelamin (L/P): ";
+        cin >> current->jenisKelamin;
+        current->jenisKelamin = toupper(current->jenisKelamin);
+        while (current->jenisKelamin != 'L' && current->jenisKelamin != 'P') {
+            cout << "Jenis kelamin tidak valid. Masukkan ulang (L/P): ";
+            cin >> current->jenisKelamin;
+        }
+        cout << "Tipe Darah (A/B/AB/O): ";
+        getline(cin >> ws, current->tipeDarah);
+        transform(current->tipeDarah.begin(), current->tipeDarah.end(), current->tipeDarah.begin(), ::toupper);
+        while (current->tipeDarah != "A" && current->tipeDarah != "B" && current->tipeDarah != "AB" && current->tipeDarah != "O") {
+            cout << "Tipe darah tidak valid. Masukkan ulang (A/B/AB/O): ";
+            cin >> current->tipeDarah;
+        }
+        // cout << "Status (belum/telah mendonor): ";
+        // cin >> current->status;
+        // transform(current->status.begin(), current->status.end(), current->status.begin(), ::tolower);
+        // while (current->status != "belum mendonor" && current->status != "telah mendonor") {
+        //     cout << "Status tidak valid. Masukkan ulang (belum/telah mendonor): ";
+        //     cin >> current->status;
+        //     transform(current->status.begin(), current->status.end(), current->status.begin(), ::tolower);
+        // }
+        cout << "Data pendonor " << rubahId << " berhasil diubah." << endl;
+    } else {
+        cout << "Data pendonor " << rubahId << " tidak ditemukan." << endl;
+    }
+};
+
+// Fungsi untuk menghapus data pendonor berdasarkan id
+void hapusPendonor() {
+    string hapusId ;
+    cout << "id: ";
+    cin >> hapusId ;
+    Pendonor* curr = head;
+    Pendonor* prev = NULL;
+
+    // Traverse linked list hingga menemukan data dengan id yang sesuai
+    while (curr != NULL && curr->id != hapusId) {
+        prev = curr;
+        curr = curr->next;
+    }
+
+    // Jika id tidak ditemukan
+    if (curr == NULL) {
+        cout << "Data pendonor dengan id " << hapusId << " tidak ditemukan." << endl;
+        return;
+    }
+
+    // Menghapus data dari linked list
+    if (prev == NULL) { // Data yang dihapus adalah data pertama
+        head = curr->next;
+    } else {
+        prev->next = curr->next;
+    }
+
+    // Menghapus data dari antrian jika ada
+    for (int i = 0; i < vectorAntrian.size(); i++) {
+        if (vectorAntrian[i].nama == curr->nama) {
+            vectorAntrian.erase(vectorAntrian.begin() + i);
+            break;
+        }
+    }
+
+    // Menghapus data dari linked list
+    delete curr;
+
+    cout << "Data pendonor dengan id " << hapusId << " berhasil dihapus." << endl;
 }
 
+void screening() {
+    //kerjaannya sanur
+}
+
+void keluhanPascaDonor() {
+    //kerjaannya Aba
+}
 
