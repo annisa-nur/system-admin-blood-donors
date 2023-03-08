@@ -259,6 +259,30 @@ void hapusPendonor() {
     cout << "Data pendonor dengan id " << hapusId << " berhasil dihapus." << endl;
 }
 
+// Fungsi untuk mencari pendonor berdasarkan nama atau id
+void cariPendonor() {
+    string cari ;
+    Pendonor* temp = head;
+    bool found = false;
+    while (temp != NULL) {
+        // Jika nama atau id ditemukan
+        if (temp->nama == cari || temp->id == cari) {
+            // Menampilkan informasi pendonor
+            cout << "Nama: " << temp->nama << endl;
+            cout << "ID: " << temp->id << endl;
+            cout << "Umur: " << temp->umur << endl;
+            cout << "Jenis Kelamin: " << temp->jenisKelamin << endl;
+            cout << "Tipe Darah: " << temp->tipeDarah << endl;
+            cout << "Status: " << temp->status << endl;
+            found = true;
+        }
+        temp = temp->next;
+    }
+    if (!found) {
+        cout << "Data tidak ditemukan." << endl;
+    }
+}
+
 void screening() {
     //kerjaannya sanur
 }
