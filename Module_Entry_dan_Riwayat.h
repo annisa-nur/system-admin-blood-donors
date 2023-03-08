@@ -262,6 +262,7 @@ void hapusPendonor() {
 // Fungsi untuk mencari pendonor berdasarkan nama atau id
 void cariPendonor() {
     string cari ;
+    cin >> cari ;
     Pendonor* temp = head;
     bool found = false;
     while (temp != NULL) {
