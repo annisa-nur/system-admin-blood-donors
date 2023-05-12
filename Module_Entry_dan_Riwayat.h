@@ -19,7 +19,7 @@ struct structStokDarah
 };
 //iniiasi stok darah
 structStokDarah stokDarah ;
-//fungsi untuk menambah stok darah
+//-----------------------------fungsi untuk menambah stok darah
 void tambahStok(string tipe) {
     if (tipe == "A") {
         stokDarah.A ++ ;
@@ -35,7 +35,7 @@ void tambahStok(string tipe) {
     }
 
 };
-//fungsi untuk menampilkan stok darah
+//-----------------------------fungsi untuk menampilkan stok darah
 void tampilkanStokDarah(){
     cout << "Stok darah: " << endl;
     cout << "A: " << stokDarah.A<< endl;
@@ -56,7 +56,7 @@ struct dataAntrian {
 // Deklarasi tipe data Queue untuk menyimpan Antrian
 vector<dataAntrian> vectorAntrian;
 
-// Fungsi untuk menambah elemen ke Antrian
+//---------------------------Fungsi untuk menambah elemen ke Antrian
 void enqueueAntrian(string namaPendonor, string* statusPendonor, string tipeDarah) {
     dataAntrian antrianPendonor;
     antrianPendonor.nama = namaPendonor;
@@ -66,14 +66,14 @@ void enqueueAntrian(string namaPendonor, string* statusPendonor, string tipeDara
 
 }
 
-// Fungsi untuk menghapus elemen dari Antrian
+//---------------------------Fungsi untuk menghapus elemen dari Antrian
 void dequeueAntrian() {
     if (!vectorAntrian.empty()) {
         vectorAntrian.erase(vectorAntrian.begin());
     }
 }
 
-// Fungsi untuk menampilkan seluruh data dalam Antrian
+//---------------------------Fungsi untuk menampilkan seluruh data dalam Antrian
 void daftarAntrian() {
     if (vectorAntrian.empty()) {
         cout << "Antrian kosong" << endl;
@@ -125,7 +125,8 @@ struct Screening {
 };
 
 Screening* headScr = NULL;
-// Fungsi untuk menambahkan pendonor ke linked list
+
+//-----------------------Fungsi untuk menambahkan pendonor ke linked list
 void registrasiPendonor() {
     Pendonor* pendonorBaru = new Pendonor;
     cout << "Masukkan data pendonor:" << endl;
@@ -163,7 +164,7 @@ void registrasiPendonor() {
     //menambahkan nama dan alamat status ke ANTRIAN ke antrian
     enqueueAntrian(pendonorBaru->nama, &pendonorBaru->status, pendonorBaru->tipeDarah) ;
 
-    //fungsi screening kerjaan Sanur
+    //--------------------------------------fungsi screening
     system("cls");
     Screening* screeningBaru = new Screening;
 
@@ -193,7 +194,7 @@ void registrasiPendonor() {
 }
 
 
-// Fungsi untuk menampilkan daftar pendonor dari linked list
+// ----------------------------------Fungsi untuk menampilkan daftar pendonor dari linked list
 void daftarPendonor() {
     Pendonor* temp = head;
     if (temp == NULL) {
@@ -263,7 +264,7 @@ void editDataPendonor() {
     }
 };
 
-// Fungsi untuk menghapus data pendonor berdasarkan id
+// ----------------------------------------------Fungsi untuk menghapus data pendonor berdasarkan id
 void hapusPendonor() {
     string hapusId ;
     cout << "id: ";
@@ -311,7 +312,7 @@ void hapusPendonor() {
     cout << "Data pendonor dengan id " << hapusId << " berhasil dihapus." << endl;
 }
 
-// Fungsi untuk mencari pendonor berdasarkan nama atau id
+// ----------------------------------Fungsi untuk mencari pendonor berdasarkan nama atau id
 void cariPendonor() {
     string cari ;
     cin >> cari ;
@@ -336,7 +337,7 @@ void cariPendonor() {
     }
 }
 
-//kerjaannya Aba
+//--------------------------------------Fungsi keluhan pasca donor
 void keluhanPascaDonor() {
     
 }

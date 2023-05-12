@@ -11,6 +11,8 @@ class login {
 void menuLogin();
 void menuLoginProcess();
 
+
+//-----------------------------------------fungsi login
 void login::Login() {
     string count;
     string username, password, id, recordPass;
@@ -43,6 +45,8 @@ void login::Login() {
     }
 }
 
+
+//-----------------------------------------fungsi registrasi
 void login::Registrasi() {
     string idAdmin, regAdmin, regPassword, regId, regPass, regCount;
     system("cls");
@@ -118,9 +122,11 @@ void menuLoginProcess() {
 
         switch(userChoice) {
             case 1: adminLogin.Login();
+                    menuLogin();
                     a = false;
                     break;
             case 2: adminLogin.Registrasi();
+                    menuLogin();
                     a = false;
                     break;
             case 3: exit(0);
