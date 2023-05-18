@@ -42,6 +42,7 @@ void login::Login() {
     } else {
         system("cls");
         cout << "\nUsername atau password salah. Coba lagi." << endl;
+        menuLogin();
     }
 }
 
@@ -122,7 +123,6 @@ void menuLoginProcess() {
 
         switch(userChoice) {
             case 1: adminLogin.Login();
-                    menuLogin();
                     a = false;
                     break;
             case 2: adminLogin.Registrasi();
