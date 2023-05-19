@@ -127,7 +127,7 @@ struct Screening {
 
 struct Keluhan {
     string idK;
-    char keluhanPendonor[256];
+    string keluhanPendonor;
     Keluhan* nextKel;
 };
 
@@ -207,7 +207,8 @@ void registrasiPendonor() {
     cout << "Keluhan Pasca Donor" << endl;
     cout << "Keterangan Keluhan: ";
     keluhanBaru -> idK = pendonorBaru ->id;
-    //cin >> keluhanBaru -> keluhanPendonor;
+    cin.ignore(); // ini biar ngahapus karakter newline sebelumny
+    getline(cin, keluhanBaru->keluhanPendonor); //  getline buar ngambil satu baris string
     
     keluhanBaru -> nextKel = headKel;
     headKel = keluhanBaru;
