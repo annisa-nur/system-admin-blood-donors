@@ -1,75 +1,11 @@
 //jadiin file ini ke module buat dipanggil di main login
-#include <bits/stdc++.h>
 //masukin module register pendonor, screening, keluhan pasca donor
 //masukin module riwayat pendonor
+
+#include <bits/stdc++.h>
 #include "Module_Entry_dan_Riwayat.h"
-using namespace std;
 
 bool a = true,b = true;
-
-void homepage();
-void homepageOperation();
-
-void historyDonorMenu() {
-    cout << "=========================================" << endl;
-    cout << "              DATA PENDONOR" << endl;
-    cout << "=========================================" << endl;
-    cout << endl;
-    cout << "Pilih dari menu dibawah:" << endl;
-    cout << "1. Cari pendonor" << endl;
-    cout << "2. Edit data pendonor" << endl;
-    cout << "3. Hapus data pendonor" << endl;
-    cout << "4. Kembali ke homepage" << endl;
-    cout << "Your choice: ";
-}
-
-void htrDonorOperation() {
-    while (a) {
-        int choice2;
-        cin >> choice2;
-        system("cls");
-        switch(choice2) {
-            case 1: //Search Donor
-                    cariPendonor();
-                    cout << endl;
-                    historyDonorMenu();
-                    htrDonorOperation();
-                    a = false;
-                    break;
-
-            case 2: //Edit Donor
-                    editDataPendonor();
-                    cout << endl;
-                    historyDonorMenu();
-                    htrDonorOperation();
-                    a = false;
-                    break;
-
-            case 3: //Remove Donor
-                    hapusPendonor();
-                    cout << endl;
-                    historyDonorMenu();
-                    htrDonorOperation();
-                    a = false;
-                    break;
-
-            case 4: //Back to homepage
-                    homepage();
-                    homepageOperation();
-                    a = false;
-                    break;
-                    
-            default: //balik ke homepage
-                    cout << "Pilih menu yang tersedia dengan benar!"<< endl;
-                    system("cls");
-                    historyDonorMenu();
-                    htrDonorOperation();
-                    break;
-        }
-        system("cls");
-    } 
-    
-}
 
 void homepage() {
     cout << "=========================================" << endl;
@@ -87,7 +23,6 @@ void homepage() {
 
 void registerDonor() {
         registrasiPendonor(); // fungsi entry donor dan screening
-        //keluhanPascaDonor();//fungsi keluhan pasca donor
 }
 
 void homepageOperation() {
@@ -125,7 +60,7 @@ void homepageOperation() {
                         cout << "3. Kembali" << endl;
                         cout << "Pilih menu: "<<endl;
                         cin >> menuAntrian;
-                        system("cls");
+                        clearScreen ();
                         switch (menuAntrian) {
                                 case 1:
                                         daftarAntrian();
@@ -177,7 +112,67 @@ void homepageOperation() {
                     homepageOperation();
                     break;
         }
-        system("cls");
+        clearScreen ();
     }
 }
 
+void historyDonorMenu() {
+    cout << "=========================================" << endl;
+    cout << "              DATA PENDONOR" << endl;
+    cout << "=========================================" << endl;
+    cout << endl;
+    cout << "Pilih dari menu dibawah:" << endl;
+    cout << "1. Cari pendonor" << endl;
+    cout << "2. Edit data pendonor" << endl;
+    cout << "3. Hapus data pendonor" << endl;
+    cout << "4. Kembali ke homepage" << endl;
+    cout << "Your choice: ";
+}
+
+void htrDonorOperation() {
+    while (a) {
+        int choice2;
+        cin >> choice2;
+        clearScreen ();
+        switch(choice2) {
+            case 1: //Search Donor
+                    cariPendonor();
+                    cout << endl;
+                    historyDonorMenu();
+                    htrDonorOperation();
+                    a = false;
+                    break;
+
+            case 2: //Edit Donor
+                    editDataPendonor();
+                    cout << endl;
+                    historyDonorMenu();
+                    htrDonorOperation();
+                    a = false;
+                    break;
+
+            case 3: //Remove Donor
+                    hapusPendonor();
+                    cout << endl;
+                    historyDonorMenu();
+                    htrDonorOperation();
+                    a = false;
+                    break;
+
+            case 4: //Back to homepage
+                    homepage();
+                    homepageOperation();
+                    a = false;
+                    break;
+                    
+            default: //balik ke homepage
+                    cout << "Pilih menu yang tersedia dengan benar!"<< endl;
+                    clearScreen ();
+                    historyDonorMenu();
+                    htrDonorOperation();
+                    break;
+        }
+        clearScreen ();
+    } 
+    
+}
