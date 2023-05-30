@@ -1,4 +1,4 @@
-// Program Donor Darah kel.5 Struktur data
+// Program Donor Darah kel.1 Struktur data
 // Anggota kelompok : Annisa, Rama, Nabila
 
 #include <iostream>
@@ -18,7 +18,7 @@ struct structStokDarah
     int AB = 0 ;
     int O = 0 ;
 };
-//iniiasi variabel stok darah
+//iniiasi stok darah
 structStokDarah stokDarah ;
 //-----------------------------fungsi untuk menambah stok darah
 void tambahStok(string tipe) {
@@ -84,7 +84,6 @@ void daftarAntrian() {
         }
     }
 }
-//---------------------------Fungsi untuk mengubah data status pendonor dalam linked list
 void changeStatus () {
     if (vectorAntrian.empty()) {
         cout << "Antrian kosong" << endl;
@@ -93,7 +92,7 @@ void changeStatus () {
         tambahStok(vectorAntrian[0].tipe) ;
     }
 }
-// Struct untuk menyimpan data pendonor yang akan dimasukkan ke dalam linked list
+// Struktur data untuk menyimpan informasi pendonor darah
 struct Pendonor {
     string nama;
     string id ;
@@ -104,10 +103,8 @@ struct Pendonor {
     Pendonor* next;
 };
 
-// Inisialisasi pointer kepala utnuk linked list
+// Inisialisasi pointer kepala linked list
 Pendonor* head = NULL;
-
-//struct untuk membantu membuat id untuk pendonor
 struct forID {
     int A = 0;
     int B = 0;
@@ -116,7 +113,6 @@ struct forID {
 };
 forID idPendonor ;
 
-//struct untuk menyimpan data screening pendonor
 struct Screening {
     string idS;
     int tekananDarah;
@@ -129,7 +125,6 @@ struct Screening {
     Screening* nextScr;
 };
 
-// struct untuk menyimpan data keluhan pasca donor
 struct Keluhan {
     string idK;
     string keluhanPendonor;
@@ -174,11 +169,11 @@ void registrasiPendonor() {
     } else if (pendonorBaru->tipeDarah == "O") {
         pendonorBaru->id = "O" + to_string(++idPendonor.O);
     }
-    //menambahkan nama dan alamat status ke antrian
+    //menambahkan nama dan alamat status ke ANTRIAN ke antrian
     enqueueAntrian(pendonorBaru->nama, &pendonorBaru->status, pendonorBaru->tipeDarah) ;
 
     //--------------------------------------fungsi screening
-    clearScreen ();
+    system("cls");
     Screening* screeningBaru = new Screening;
 
     cout << "Screening Awal Pendonor" << endl;
@@ -203,7 +198,7 @@ void registrasiPendonor() {
     screeningBaru -> idS = pendonorBaru->id;
     screeningBaru -> nextScr = headScr;
     headScr = screeningBaru;
-    clearScreen ();
+    system("cls");
 
 
     //-------------------------------------------------------Fungsi Keluhan Pasca Donor
@@ -220,7 +215,7 @@ void registrasiPendonor() {
 }
 
 
-// ----------------------------------Fungsi untuk menampilkan daftar pendonor yang ada dalam linked list
+// ----------------------------------Fungsi untuk menampilkan daftar pendonor dari linked list
 void daftarPendonor() {
     Pendonor* temp = head;
     if (temp == NULL) {
@@ -278,6 +273,14 @@ void editDataPendonor() {
             cout << "Tipe darah tidak valid. Masukkan ulang (A/B/AB/O): ";
             cin >> current->tipeDarah;
         }
+        // cout << "Status (belum/telah mendonor): ";
+        // cin >> current->status;
+        // transform(current->status.begin(), current->status.end(), current->status.begin(), ::tolower);
+        // while (current->status != "belum mendonor" && current->status != "telah mendonor") {
+        //     cout << "Status tidak valid. Masukkan ulang (belum/telah mendonor): ";
+        //     cin >> current->status;
+        //     transform(current->status.begin(), current->status.end(), current->status.begin(), ::tolower);
+        // }
         cout << "Data pendonor " << rubahId << " berhasil diubah." << endl;
     } else {
         cout << "Data pendonor " << rubahId << " tidak ditemukan." << endl;
@@ -363,10 +366,4 @@ void cariPendonor() {
     if (!found) {
         cout << "Data tidak ditemukan." << endl;
     }
-}
-
-//-----------------------------------Fungsi untuk membersihkan layar
-void clearScreen (){
-    system("cls");
-    system("clear");
 }
