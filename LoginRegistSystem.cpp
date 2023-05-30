@@ -1,9 +1,7 @@
 #include <bits/stdc++.h>
-#include "Homepage.h"
+#include "Homepage.cpp"
 using namespace std;
 bool c = true;
-
-//--------------------Class untuk menyatukan login dan registrasi
 class login {
     public:
         void Login();
@@ -33,7 +31,7 @@ void login::Login() {
     while (input >> id >> recordPass) {
         if(id == username && stoi(recordPass) == loginHashPassword ) {
             count = "1";
-            clearScreen ();
+            system("cls");
         }
     }
     input.close();
@@ -42,16 +40,17 @@ void login::Login() {
         homepage();
         homepageOperation();
     } else {
-        clearScreen ();
+        system("cls");
         cout << "\nUsername atau password salah. Coba lagi." << endl;
         menuLogin();
     }
 }
 
-//-----------------------------------------Fungsi registrasi
+
+//-----------------------------------------fungsi registrasi
 void login::Registrasi() {
     string idAdmin, regAdmin, regPassword, regId, regPass, regCount;
-    clearScreen ();
+    system("cls");
     cout << "Selamat Datang di Halaman Register Admin" << endl;
     cout << "\nMasukkan id admin: ";
     cin >> idAdmin;
@@ -70,7 +69,7 @@ void login::Registrasi() {
     if(input.tellg() == 0) {
         ofstream f1("data.txt", ios::app);
         f1 << regAdmin << ' ' << hassPassword << ' ' << endl;
-        clearScreen ();
+        system("cls");
         cout << "Registrasi admin berhasil." << endl ;
         menuLogin();
         menuLoginProcess();
@@ -98,14 +97,13 @@ void login::Registrasi() {
     if(regCount == "1"){
         ofstream f1("data.txt", ios::app);
         f1 << regAdmin << ' ' << hassPassword << ' ' << endl;
-        clearScreen ();
+        system("cls");
         cout << "Regitrasi Admin berhasil." << endl;
         menuLogin();
         menuLoginProcess();
     }
 }
 
-//------------------------------Fungsi untuk menampilkan menu login
 void menuLogin() {
     cout << "==================================================" << endl;
     cout << "Selamat Datang di Sistem Administrasi Donor Darah" << endl;
@@ -116,7 +114,6 @@ void menuLogin() {
     cout << "Masukkan pilihan: "<< endl;
 }
 
-//------------------------------Fungsi untuk memproses login
 void menuLoginProcess() {
     while (c) {
         int userChoice;
@@ -140,7 +137,7 @@ void menuLoginProcess() {
     }
 }
 
-//------------------------------Fungsi utama
+
 int main() {
     menuLogin();
     menuLoginProcess();
